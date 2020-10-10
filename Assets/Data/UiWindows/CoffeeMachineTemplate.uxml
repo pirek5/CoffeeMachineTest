@@ -1,0 +1,38 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:ListView focusable="True" name="WindowListView" style="flex-grow: 1; flex-shrink: 0;">
+        <ui:VisualElement name="Panel" style="flex-grow: 1; flex-direction: row; flex-shrink: 1;">
+            <ui:VisualElement name="LeftPanel" style="flex-direction: column; flex-grow: 1;">
+                <ui:VisualElement name="ActionsPanel">
+                    <ui:Button text="Check Machine" name="CheckMachineButton" style="max-width: 200px;" />
+                    <ui:Button text="Refill water tank" name="RefillWaterTankButton" style="max-width: 200px;" />
+                    <ui:Button text="Refill coffee tank" name="RefillCoffeeTankButton" style="max-width: 200px;" />
+                    <ui:Button text="Remove water from the tray" name="RemoveWaterFromTrayButton" style="max-width: 200px;" />
+                    <ui:Button text="Remove coffee grounds" name="RemoveCoffeeGroundsButton" style="max-width: 200px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="StatusPanel" style="margin-top: 20px;">
+                    <ui:TextField picking-mode="Ignore" name="StatusTextField" multiline="true" style="white-space: normal;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="RightPanel" style="flex-grow: 1; margin-right: 10px;">
+                <ui:VisualElement name="CoffeMachine" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; flex-grow: 0; height: 400px; width: 300px;">
+                    <ui:VisualElement name="OnOffButtons" style="flex-direction: row; justify-content: center;">
+                        <ui:Button text="ON" name="OnButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 50px;" />
+                        <ui:Button text="OFF" name="OffButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 50px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="TypeOfCoffeeButtons" style="flex-direction: row; justify-content: space-around;">
+                        <ui:Button text="MILD" name="MildButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 70px;" />
+                        <ui:Button text="NORMAL" name="NormalButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 70px;" />
+                        <ui:Button text="STRONG" name="StrongButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 70px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="SizeOfCoffeeButtons" style="flex-direction: row; justify-content: space-around;">
+                        <ui:Button text="SMALL" name="SmallButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 70px;" />
+                        <ui:Button text="MEDIUM" name="MediumButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 70px;" />
+                        <ui:Button text="BIG" name="BigButton" style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; min-height: 50px; min-width: 70px;" />
+                    </ui:VisualElement>
+                    <ui:Button text="MakeCoffee" name="MakeCoffeeButton" style="margin-top: 30px; margin-left: 20px; margin-right: 20px; height: 30px; background-color: rgb(0, 84, 72);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ListView>
+    <ui:VisualElement />
+</ui:UXML>

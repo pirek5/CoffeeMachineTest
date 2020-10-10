@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4f8ea36afa34a0a45a50de5e01764ed6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - coffeeMachineSettings: {fileID: 11400000, guid: b204af0f850f6984ca0496900290ab51,
+      type: 2}
+  - coffeeMachineState: {fileID: 11400000, guid: 1810e8de6e0ee384f99ef1247cce728f,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

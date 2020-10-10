@@ -18,6 +18,7 @@ MonoBehaviour:
   coffeeGroundsTankCapacity: 200
   minAmountOfWaterThatGoesToTray: 1
   maxAmountOfWaterThatGoesToTray: 10
+  statusMachineDisabled: Coffee machine is disabled, nothing happend
   statusOk: You made coffee!
   statusTrayFull: You made coffee, but youl spill fluid, tray is full!
   noCoffeeWarning: Not enough coffee in the tank, please refill cofee tank!
