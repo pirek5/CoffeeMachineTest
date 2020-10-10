@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class CoffeeMachine
@@ -69,13 +70,14 @@ public class CoffeeMachine
 
     public string CheckMachineState()
     {
-        StringBuilder coffeeState = new StringBuilder("Amount of water in the tank: " + coffeeMachineState.amountOfWaterInTank);
+        StringBuilder coffeeState = new StringBuilder();
+        coffeeState.AppendLine("Amount of water in the tank: " + coffeeMachineState.amountOfWaterInTank);
         coffeeState.AppendLine("Amount of coffee in the tank: " + coffeeMachineState.amountOfCoffee);
         coffeeState.AppendLine("Amount of coffee grounds in the tank: " + coffeeMachineState.amountOfCoffeeGrounds);
         coffeeState.AppendLine("Amount of water in the tray: " + coffeeMachineState.amountOfWaterInTray);
         if (coffeeMachineState.amountOfWaterInTray >= settings.WaterTrayCapacity)
         {
-            coffeeState.AppendLine("Coffee tray is full, please empty tray!");
+            coffeeState.AppendLine("Tray is full, please empty tray!");
         }
 
         return coffeeState.ToString();
@@ -116,7 +118,8 @@ public class CoffeeMachine
             settings.MaxAmountOfWaterThatGoesToTray);
         coffeeToProduce.amountOfWater -= amountOfWaterThatGoesToTray;
         
-        coffeeMachineState.amountOfWaterInTray += amountOfWaterThatGoesToTray;
+        coffeeMachineState.amountOfWaterInTray = Mathf.Max(settings.WaterTrayCapacity, 
+            coffeeMachineState.amountOfWaterInTank + amountOfWaterThatGoesToTray) ;
         return coffeeToProduce;
     }
     
@@ -126,7 +129,7 @@ public class CoffeeMachine
     
     private bool IsEnoughWaterInTank(Coffee coffeeToProduce)
     {
-        return coffeeMachineState.amountOfCoffee >= coffeeToProduce.usedCoffeeSeeds;
+        return coffeeMachineState.amountOfWaterInTank >= coffeeToProduce.amountOfWater;
     }
 
     private bool IsEnoughCoffeeInTank(Coffee coffeeToProduce)
