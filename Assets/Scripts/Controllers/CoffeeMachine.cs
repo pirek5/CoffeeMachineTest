@@ -31,16 +31,11 @@ public class CoffeeMachine
     
     #region Public Methods
 
-    public void EnableMachine()
+    public void ToggleMachine(bool isEnabled)
     {
-        machineEnabled = true;
+        machineEnabled = isEnabled;
     }
 
-    public void DisableMachine()
-    {
-        machineEnabled = false;
-    }
-    
     public void RefillCoffee()
     {
         coffeeMachineState.amountOfCoffee = settings.CoffeeTankCapacity;
@@ -147,9 +142,10 @@ public class CoffeeMachine
     {
         coffeeMachineState.amountOfCoffee -= coffee.usedCoffeeSeeds;
         coffeeMachineState.amountOfWaterInTank -= coffee.amountOfWater;
-        float waterInCoffeeGrounds = coffee.producedCoffeeGrounds - coffee.usedCoffeeSeeds;
+        float producedCoffeeGrounds = coffee.usedCoffeeSeeds * settings.CoffeeGroundsWasteMultiplier;
+        float waterInCoffeeGrounds = producedCoffeeGrounds - coffee.usedCoffeeSeeds;
         coffeeMachineState.amountOfWaterInTank -= waterInCoffeeGrounds;
-        coffeeMachineState.amountOfCoffeeGrounds += coffee.producedCoffeeGrounds;
+        coffeeMachineState.amountOfCoffeeGrounds += producedCoffeeGrounds;
     }
 
     private void HandleCoffeeMachineTray(Coffee coffee)

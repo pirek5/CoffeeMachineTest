@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
@@ -9,10 +8,11 @@ public class CoffeeMachineUI : MonoBehaviour
     
     [SerializeField] private CoffeeMachineSettings settings;
     [SerializeField] private CoffeeMachineState state;
-
+    [Space]
     [SerializeField] private TextMeshProUGUI status;
 
     private CoffeeMachine coffeeMachine;
+    private FavoritesCoffeesController favoritesCoffeesController;
     
     #endregion
     
@@ -30,13 +30,13 @@ public class CoffeeMachineUI : MonoBehaviour
     [UsedImplicitly]
     public void OnEnableMachinePressed()
     {
-        coffeeMachine.EnableMachine();
+        coffeeMachine.ToggleMachine(true);
     }
     
     [UsedImplicitly]
     public void OnDisableMachinePressed()
     {
-        coffeeMachine.DisableMachine();
+        coffeeMachine.ToggleMachine(false);
     }
     
     [UsedImplicitly]
@@ -111,6 +111,6 @@ public class CoffeeMachineUI : MonoBehaviour
         ProducedCoffee coffee = coffeeMachine.MakeCoffee();
         status.text = coffee.ToString();
     }
-    
+
     #endregion
 }

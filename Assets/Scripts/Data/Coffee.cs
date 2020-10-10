@@ -43,7 +43,6 @@ public class Coffee
     public CoffeeSize coffeeSize;
     public float amountOfWater;
     public float usedCoffeeSeeds;
-    public float producedCoffeeGrounds;
 
     public override string ToString()
     {
@@ -51,7 +50,6 @@ public class Coffee
         coffee.AppendLine($"It is a nice cup of coffee, some may say that it is {coffeeStrength}, {coffeeSize} coffee");
         coffee.AppendLine($"This coffee contains {amountOfWater}ml of water");
         coffee.AppendLine($"To produced it {usedCoffeeSeeds}grams of coffee seeds was used");
-        coffee.AppendLine($"There were produced {producedCoffeeGrounds}grams of coffee grounds to get it");
         return coffee.ToString();
     }
 }

@@ -7,26 +7,40 @@ public class CoffeeMachineSettings : ScriptableObject
     #region Types
     
     [System.Serializable]
-    private class CoffeeSettings
+    public class CoffeeSettings
     {
         [SerializeField] private CoffeeStrength coffeeStrength;
         [SerializeField] private CoffeeSize coffeeSize;
         [Space] 
         [SerializeField] private float waterUsed;
         [SerializeField] private float coffeeSeedsUsed;
-        [SerializeField] private float coffeeGroundsProduced;
+        [SerializeField] private string coffeeName;
 
+        public string CoffeeName => coffeeName;
         public CoffeeStrength CoffeeStrength => coffeeStrength;
         public CoffeeSize CoffeeSize => coffeeSize;
-    
-        public Coffee Coffee => new Coffee
+        public float WaterUsed => waterUsed;
+        public float CoffeeSeedsUsed => coffeeSeedsUsed;
+
+        public CoffeeSettings(string coffeeName, float waterUsed, float coffeeSeedsUsed, CoffeeStrength coffeeStrength, CoffeeSize coffeeSize)
         {
-            coffeeStrength = coffeeStrength,
-            coffeeSize = coffeeSize,
-            usedCoffeeSeeds = coffeeSeedsUsed,
-            producedCoffeeGrounds = coffeeGroundsProduced,
-            amountOfWater = waterUsed,
-        };
+            this.coffeeName = coffeeName;
+            this.waterUsed = coffeeSeedsUsed;
+            this.coffeeSeedsUsed = coffeeSeedsUsed;
+            this.coffeeSize = coffeeSize;
+            this.coffeeStrength = coffeeStrength;
+        }
+
+        public Coffee GetCoffeeFromThisSettings()
+        {
+            return new Coffee
+            {
+                coffeeStrength = coffeeStrength,
+                coffeeSize = coffeeSize,
+                usedCoffeeSeeds = coffeeSeedsUsed,
+                amountOfWater = waterUsed,
+            };
+        }
     }
     
     #endregion
@@ -40,6 +54,8 @@ public class CoffeeMachineSettings : ScriptableObject
     [Space] 
     [SerializeField] private float minAmountOfWaterThatGoesToTray;
     [SerializeField] private float maxAmountOfWaterThatGoesToTray;
+    [Tooltip("Amount of used coffee seeds is multiplied by this to get amount of coffee grounds (grounds is coffee seed plus water")]
+    [SerializeField, Range(1f,2f)] private float coffeeGroundsWasteMultiplier;
     [Space] 
     [SerializeField] private string statusMachineDisabled;
     [SerializeField] private string statusOk;
@@ -61,6 +77,7 @@ public class CoffeeMachineSettings : ScriptableObject
 
     public float MinAmountOfWaterThatGoesToTray => minAmountOfWaterThatGoesToTray;
     public float MaxAmountOfWaterThatGoesToTray => maxAmountOfWaterThatGoesToTray;
+    public float CoffeeGroundsWasteMultiplier => coffeeGroundsWasteMultiplier;
 
     public string StatusMachineDisabled => statusMachineDisabled;
     public string StatusOk => statusOk;
@@ -79,7 +96,7 @@ public class CoffeeMachineSettings : ScriptableObject
         {
             if (coffeeSettings.CoffeeSize == coffeeSize && coffeeSettings.CoffeeStrength == coffeeStrength)
             {
-                return coffeeSettings.Coffee;
+                return coffeeSettings.GetCoffeeFromThisSettings();
             }
         }
 
