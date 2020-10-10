@@ -7,6 +7,7 @@ public class CoffeeMachineWindow : EditorWindow
 {
     [SerializeField] private CoffeeMachineSettings coffeeMachineSettings;
     [SerializeField] private CoffeeMachineState coffeeMachineState;
+    [SerializeField] private FavoriteCoffeesSettings favoriteCoffeesSettings;
     
     private readonly string windowTemplatePath = "Assets/Data/UiWindows/CoffeeMachineTemplate.uxml";
     
@@ -19,7 +20,8 @@ public class CoffeeMachineWindow : EditorWindow
 
     private void OnEnable()
     {
-        CoffeeMachine coffeeMachine = new CoffeeMachine(coffeeMachineState, coffeeMachineSettings);
+        FavoritesCoffeesController favoritesCoffeesController = new FavoritesCoffeesController(coffeeMachineState, favoriteCoffeesSettings);
+        CoffeeMachine coffeeMachine = new CoffeeMachine(coffeeMachineState, coffeeMachineSettings, favoritesCoffeesController);
         CoffeeMachineEditorView coffeeMachineEditorView = new CoffeeMachineEditorView(rootVisualElement, coffeeMachine);
         var windowTreeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(windowTemplatePath);
         coffeeMachineEditorView.Show(windowTreeAsset);

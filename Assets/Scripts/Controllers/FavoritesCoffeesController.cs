@@ -5,47 +5,59 @@ using UnityEngine;
 
 public class FavoritesCoffeesController
 {
-    public event Action<CoffeeMachineSettings.CoffeeSettings> makeFavoriteCoffeeRequested;
+    #region Variables
     
     private readonly CoffeeMachineState coffeeMachineState;
     private readonly FavoriteCoffeesSettings favoriteCoffeesSettings;
 
-    private int currentCoffeeIndex;
+    public int currentCoffeeIndex;
+    
+    #endregion
+    
+    #region Constructor & Init
     
     public FavoritesCoffeesController(CoffeeMachineState coffeeMachineState, FavoriteCoffeesSettings favoriteCoffeesSettings)
     {
         this.favoriteCoffeesSettings = favoriteCoffeesSettings;
         this.coffeeMachineState = coffeeMachineState;
+        currentCoffeeIndex = -1; // -1 means add coffee page
     }
+    
+    #endregion
+    
+    #region Public Mehods
 
     public void SwitchToNextFavoriteCoffee()
     {
         currentCoffeeIndex++;
         if (!CoffeeWithCurrentIndexExists())
         {
-            currentCoffeeIndex = 0;
+            currentCoffeeIndex = -1;
         }
     }
 
     public void SwitchToPreviousFavoriteCoffee()
     {
         currentCoffeeIndex--;
-        if (currentCoffeeIndex < 0)
+        if (currentCoffeeIndex < -1)
         {
-            currentCoffeeIndex = coffeeMachineState.favoriteCoffees.Count;
+            currentCoffeeIndex = coffeeMachineState.favoriteCoffees.Count - 1;
         }
     }
 
     public void AddFavoriteCoffee(string coffeeName, float waterAmount, float coffeeSeedsAmount)
     {
-        if (coffeeMachineState.favoriteCoffees.Exists((x) => x.CoffeeName == coffeeName))
+        if (coffeeName == string.Empty)
             return;
 
-
+        if (coffeeMachineState.favoriteCoffees.Exists((x) => x.CoffeeName == coffeeName))
+            return;
+        
         var subjectiveCoffeeSize = GetCoffeeSize(waterAmount);
         var subjectiveCoffeeStrength = GetCoffeeStrength(waterAmount, coffeeSeedsAmount);
         coffeeMachineState.favoriteCoffees.Add(new CoffeeMachineSettings.CoffeeSettings
             (coffeeName, waterAmount, coffeeSeedsAmount, subjectiveCoffeeStrength, subjectiveCoffeeSize));
+        currentCoffeeIndex = coffeeMachineState.favoriteCoffees.Count - 1;
     }
 
     public void RemoveCurrentCoffee()
@@ -56,31 +68,25 @@ public class FavoritesCoffeesController
         }
 
         currentCoffeeIndex--;
-        currentCoffeeIndex = Mathf.Max(0, currentCoffeeIndex);
     }
 
     public CoffeeMachineSettings.CoffeeSettings GetCurrentFavoriteCoffee()
     {
         return CoffeeWithCurrentIndexExists() ? coffeeMachineState.favoriteCoffees[currentCoffeeIndex] : null;
     }
-
-    public void MakeFavoriteCoffee()
-    {
-        
-    }
+    
+    #endregion
+    
+    #region Private Methods
 
     private CoffeeSize GetCoffeeSize(float waterAmount)
     {
         if (waterAmount >= favoriteCoffeesSettings.AmountOfWaterToCoffeeBeDefinedAsBig)
-        {
             return CoffeeSize.Big;
-        }
-
+        
         if (waterAmount >= favoriteCoffeesSettings.AmountOfWaterToCoffeeBeDefinedAsMedium)
-        {
             return CoffeeSize.Medium;
-        }
-
+        
         return CoffeeSize.Small;
     }
 
@@ -88,20 +94,18 @@ public class FavoritesCoffeesController
     {
         float ratio = seedAmount / waterAmount;
         if (ratio >= favoriteCoffeesSettings.CoffeeWaterRatioForStrongCoffee)
-        {
             return CoffeeStrength.Strong;
-        }
 
         if (ratio >= favoriteCoffeesSettings.CoffeeWaterRatioForNormalCoffee)
-        {
             return CoffeeStrength.Normal;
-        }
 
         return CoffeeStrength.Mild;
     }
 
     private bool CoffeeWithCurrentIndexExists()
     {
-        return currentCoffeeIndex <= coffeeMachineState.favoriteCoffees.Count - 1 && currentCoffeeIndex > 0;
+        return currentCoffeeIndex < coffeeMachineState.favoriteCoffees.Count && currentCoffeeIndex >= 0;
     }
+    
+    #endregion
 }

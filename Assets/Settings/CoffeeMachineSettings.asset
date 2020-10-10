@@ -18,56 +18,58 @@ MonoBehaviour:
   coffeeGroundsTankCapacity: 200
   minAmountOfWaterThatGoesToTray: 1
   maxAmountOfWaterThatGoesToTray: 10
+  coffeeGroundsWasteMultiplier: 1.3
   statusMachineDisabled: Coffee machine is disabled, nothing happend
-  statusOk: You made coffee!
+  statusOk: You made a coffee!
   statusTrayFull: You made coffee, but youl spill fluid, tray is full!
   noCoffeeWarning: Not enough coffee in the tank, please refill cofee tank!
   noWaterWarning: Not enough water in the tank, please refill water tank!
   toMuchCoffeeGroundsWarning: To much coffee ground in the tank, please remove coffee
     grounds!
+  noFavCoffeeSelectedStatus: No favorite coffee selected!
   possibleCoffees:
   - coffeeStrength: 0
     coffeeSize: 0
     waterUsed: 150
     coffeeSeedsUsed: 10
-    coffeeGroundsProduced: 15
+    coffeeName: 
   - coffeeStrength: 0
     coffeeSize: 1
     waterUsed: 200
     coffeeSeedsUsed: 15
-    coffeeGroundsProduced: 22
+    coffeeName: 
   - coffeeStrength: 0
     coffeeSize: 2
     waterUsed: 250
     coffeeSeedsUsed: 20
-    coffeeGroundsProduced: 30
+    coffeeName: 
   - coffeeStrength: 1
     coffeeSize: 0
     waterUsed: 150
     coffeeSeedsUsed: 15
-    coffeeGroundsProduced: 22
+    coffeeName: 
   - coffeeStrength: 1
     coffeeSize: 1
     waterUsed: 200
     coffeeSeedsUsed: 20
-    coffeeGroundsProduced: 30
+    coffeeName: 
   - coffeeStrength: 1
     coffeeSize: 2
     waterUsed: 250
     coffeeSeedsUsed: 25
-    coffeeGroundsProduced: 35
+    coffeeName: 
   - coffeeStrength: 2
     coffeeSize: 0
     waterUsed: 150
     coffeeSeedsUsed: 20
-    coffeeGroundsProduced: 30
+    coffeeName: 
   - coffeeStrength: 2
     coffeeSize: 1
     waterUsed: 200
     coffeeSeedsUsed: 25
-    coffeeGroundsProduced: 35
+    coffeeName: 
   - coffeeStrength: 2
     coffeeSize: 2
     waterUsed: 250
     coffeeSeedsUsed: 30
-    coffeeGroundsProduced: 45
+    coffeeName: 

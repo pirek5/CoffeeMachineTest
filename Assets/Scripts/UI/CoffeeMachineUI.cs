@@ -7,20 +7,23 @@ public class CoffeeMachineUI : MonoBehaviour
     #region Variables
     
     [SerializeField] private CoffeeMachineSettings settings;
+    [SerializeField] private FavoriteCoffeesSettings favoriteCoffeesSettings;
     [SerializeField] private CoffeeMachineState state;
+    [SerializeField] private FavoritesCoffeeUI favoritesCoffeeUi;
     [Space]
     [SerializeField] private TextMeshProUGUI status;
 
     private CoffeeMachine coffeeMachine;
-    private FavoritesCoffeesController favoritesCoffeesController;
-    
+
     #endregion
     
     #region Unity Methods
     
     private void Start()
     {
-        coffeeMachine = new CoffeeMachine(state, settings);
+        var favoritesCoffeeController = new FavoritesCoffeesController(state, favoriteCoffeesSettings);
+        coffeeMachine = new CoffeeMachine(state, settings, favoritesCoffeeController);
+        favoritesCoffeeUi.Init(favoritesCoffeeController, favoriteCoffeesSettings);
     }
     
     #endregion
@@ -108,7 +111,14 @@ public class CoffeeMachineUI : MonoBehaviour
     [UsedImplicitly]
     public void OnMakeCoffeePressed()
     {
-        ProducedCoffee coffee = coffeeMachine.MakeCoffee();
+        ProducedCoffee coffee = coffeeMachine.MakeRegularCoffee();
+        status.text = coffee.ToString();
+    }
+    
+    [UsedImplicitly]
+    public void OnMakeFavoriteCoffeePressed()
+    {
+        ProducedCoffee coffee = coffeeMachine.MakeFavoriteCoffee();
         status.text = coffee.ToString();
     }
 

@@ -9,7 +9,8 @@ using Random = UnityEngine.Random;
 public class CoffeeMachine
 {
     #region Variables
-    
+
+    private FavoritesCoffeesController favoritesCoffeesController;
     private CoffeeMachineState coffeeMachineState;
     private CoffeeMachineSettings settings;
 
@@ -21,10 +22,11 @@ public class CoffeeMachine
     
     #region Contructor & Init
 
-    public CoffeeMachine(CoffeeMachineState coffeeMachineState, CoffeeMachineSettings settings)
+    public CoffeeMachine(CoffeeMachineState coffeeMachineState, CoffeeMachineSettings settings, FavoritesCoffeesController favoritesCoffeesController)
     {
         this.coffeeMachineState = coffeeMachineState;
         this.settings = settings;
+        this.favoritesCoffeesController = favoritesCoffeesController;
     }
 
     #endregion
@@ -72,7 +74,6 @@ public class CoffeeMachine
         selectedCoffeeSize = coffeeSize;
     }
     
-
     public string CheckMachineState()
     {
         StringBuilder coffeeState = new StringBuilder();
@@ -88,12 +89,35 @@ public class CoffeeMachine
         return coffeeState.ToString();
     }
 
-    public ProducedCoffee MakeCoffee()
+    public ProducedCoffee MakeFavoriteCoffee()
     {
         if (!machineEnabled)
             return new ProducedCoffee(settings.StatusMachineDisabled , null);
+        
+        if (favoritesCoffeesController.GetCurrentFavoriteCoffee() == null)
+        {
+            return new ProducedCoffee(settings.NoFavCoffeeSelectedStatus, null);
+        }
+        
+        Coffee coffee = favoritesCoffeesController.GetCurrentFavoriteCoffee().GetCoffeeFromThisSettings();
+        return MakeCoffee(coffee);
+    }
 
+    public ProducedCoffee MakeRegularCoffee()
+    {
+        if (!machineEnabled)
+            return new ProducedCoffee(settings.StatusMachineDisabled , null);
+        
         Coffee coffee = settings.GetSpecificCoffee(selectedCoffeeStrength, selectedCoffeeSize);
+        return MakeCoffee(coffee);
+    }
+
+    #endregion
+    
+    #region Private Methods
+    
+    private ProducedCoffee MakeCoffee(Coffee coffee)
+    {
         var machineWarning = ValidateMachineBeforeUse(coffee);
         if(machineWarning != string.Empty)
             return new ProducedCoffee(machineWarning , null);
@@ -104,10 +128,6 @@ public class CoffeeMachine
 
         return new ProducedCoffee(status, coffee);
     }
-    
-    #endregion
-    
-    #region Private Methods
     
     private string ValidateMachineBeforeUse(Coffee coffeeToProduce)
     {

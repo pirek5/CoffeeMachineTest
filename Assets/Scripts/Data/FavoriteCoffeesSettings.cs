@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
+[CreateAssetMenu(fileName = "FavoriteCoffeesSettings", menuName = "CoffeeMachine/FavoriteCoffeeSettings")]
 public class FavoriteCoffeesSettings : ScriptableObject
 {
     [SerializeField] private float defaultAmountOfWater;

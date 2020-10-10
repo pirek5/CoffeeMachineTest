@@ -25,7 +25,7 @@ public class CoffeeMachineSettings : ScriptableObject
         public CoffeeSettings(string coffeeName, float waterUsed, float coffeeSeedsUsed, CoffeeStrength coffeeStrength, CoffeeSize coffeeSize)
         {
             this.coffeeName = coffeeName;
-            this.waterUsed = coffeeSeedsUsed;
+            this.waterUsed = waterUsed;
             this.coffeeSeedsUsed = coffeeSeedsUsed;
             this.coffeeSize = coffeeSize;
             this.coffeeStrength = coffeeStrength;
@@ -63,6 +63,7 @@ public class CoffeeMachineSettings : ScriptableObject
     [SerializeField] private string noCoffeeWarning;
     [SerializeField] private string noWaterWarning;
     [SerializeField] private string toMuchCoffeeGroundsWarning;
+    [SerializeField] private string noFavCoffeeSelectedStatus;
     [Space]
     [SerializeField] private List<CoffeeSettings> possibleCoffees;
     
@@ -81,6 +82,7 @@ public class CoffeeMachineSettings : ScriptableObject
 
     public string StatusMachineDisabled => statusMachineDisabled;
     public string StatusOk => statusOk;
+    public string NoFavCoffeeSelectedStatus => noFavCoffeeSelectedStatus;
     public string StatusTrayFull => statusTrayFull;
     public string NoCoffeeWarning => noCoffeeWarning;
     public string NoWaterWarning => noWaterWarning;

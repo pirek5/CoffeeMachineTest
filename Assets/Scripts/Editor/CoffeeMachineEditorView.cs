@@ -77,7 +77,7 @@ public class CoffeeMachineEditorView
 
         root.Q<Button>("MakeCoffeeButton").clicked += () =>
         {
-            status.value = coffeeMachine.MakeCoffee().ToString();
+            status.value = coffeeMachine.MakeRegularCoffee().ToString();
         };
     }
 }

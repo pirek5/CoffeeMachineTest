@@ -1,37 +1,43 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using JetBrains.Annotations;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FavoritesCoffeeUI : MonoBehaviour
 {
-    [SerializeField] private CoffeeMachineSettings generalSettings;
-    [SerializeField] private FavoriteCoffeesSettings favoriteCoffeesSettings;
-    [SerializeField] private CoffeeMachineState state;
-    [Space]
-    [SerializeField] private InputField favoriteCoffeeName;
-    [SerializeField] private InputField amountOfCoffee;
-    [SerializeField] private InputField amountOfWater;
-    [SerializeField] private Button makeFavoriteCoffeeButton;
+    #region Variables
+    
+    [SerializeField] private TMP_InputField favoriteCoffeeName;
+    [SerializeField] private TMP_InputField amountOfCoffee;
+    [SerializeField] private TMP_InputField amountOfWater;
     [SerializeField] private Button addFavoriteCoffeeButton;
     [SerializeField] private Button removeFavoriteCoffeeButton;
-    
 
+    private FavoriteCoffeesSettings settings;
     private FavoritesCoffeesController favoritesCoffeesController;
 
-    private void Start()
+    #endregion
+
+    #region Constructors & Init
+
+    public void Init(FavoritesCoffeesController favoritesCoffeesController, FavoriteCoffeesSettings settings)
     {
-        favoritesCoffeesController = new FavoritesCoffeesController(state, favoriteCoffeesSettings);
+        this.settings = settings;
+        this.favoritesCoffeesController = favoritesCoffeesController;
         RefreshView();
     }
+
+    #endregion
+    
+    #region Public Methods
 
     [UsedImplicitly]
     public void OnAddFavoriteCoffeePressed()
     {
         favoritesCoffeesController.AddFavoriteCoffee(favoriteCoffeeName.text, 
-            float.Parse(amountOfCoffee.text), float.Parse(amountOfCoffee.text));
+            float.Parse(amountOfWater.text), float.Parse(amountOfCoffee.text));
+        RefreshView();
     }
     
     [UsedImplicitly]
@@ -54,12 +60,10 @@ public class FavoritesCoffeeUI : MonoBehaviour
         favoritesCoffeesController.SwitchToPreviousFavoriteCoffee();
         RefreshView();
     }
+
+    #endregion
     
-    [UsedImplicitly]
-    public void OnMakeFavoriteCoffeePressed()
-    {
-        favoritesCoffeesController.MakeFavoriteCoffee();
-    }
+    #region Private Methods
     
     private void RefreshView()
     {
@@ -72,17 +76,17 @@ public class FavoritesCoffeeUI : MonoBehaviour
         {
             ShowMakeFavoriteCoffee(currentFavoriteCoffee);
         }
+        Debug.Log("current page: "+ favoritesCoffeesController.currentCoffeeIndex);
     }
 
     private void ShowAddFavoriteCoffeeArea()
     {
         favoriteCoffeeName.interactable = true;
         favoriteCoffeeName.text = String.Empty;
+        amountOfWater.interactable = true;
+        amountOfWater.text = settings.DefaultAmountOfWater.ToString();
         amountOfCoffee.interactable = true;
-        amountOfWater.text = favoriteCoffeesSettings.DefaultAmountOfWater.ToString();
-        amountOfCoffee.interactable = true;
-        amountOfCoffee.text = favoriteCoffeesSettings.DefaultAmountOfCoffeeSeeds.ToString();
-        makeFavoriteCoffeeButton.gameObject.SetActive(false);
+        amountOfCoffee.text = settings.DefaultAmountOfCoffeeSeeds.ToString();
         addFavoriteCoffeeButton.gameObject.SetActive(true);
         removeFavoriteCoffeeButton.gameObject.SetActive(false);
     }
@@ -91,12 +95,13 @@ public class FavoritesCoffeeUI : MonoBehaviour
     {
         favoriteCoffeeName.interactable = false;
         favoriteCoffeeName.text = coffeeSettings.CoffeeName;
-        amountOfCoffee.interactable = false;
+        amountOfWater.interactable = false;
         amountOfWater.text = coffeeSettings.WaterUsed.ToString();
         amountOfCoffee.interactable = false;
         amountOfCoffee.text = coffeeSettings.CoffeeSeedsUsed.ToString();
-        makeFavoriteCoffeeButton.gameObject.SetActive(true);
         addFavoriteCoffeeButton.gameObject.SetActive(false);
         removeFavoriteCoffeeButton.gameObject.SetActive(true);
     }
+    
+    #endregion
 }
