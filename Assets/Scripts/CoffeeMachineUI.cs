@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
@@ -31,6 +28,18 @@ public class CoffeeMachineUI : MonoBehaviour
     #region Public Methods
 
     [UsedImplicitly]
+    public void OnEnableMachinePressed()
+    {
+        coffeeMachine.EnableMachine();
+    }
+    
+    [UsedImplicitly]
+    public void OnDisableMachinePressed()
+    {
+        coffeeMachine.DisableMachine();
+    }
+    
+    [UsedImplicitly]
     public void OnRefillWaterPressed()
     {
         coffeeMachine.RefillWater();
@@ -57,37 +66,37 @@ public class CoffeeMachineUI : MonoBehaviour
     [UsedImplicitly]
     public void OnMildPressed()
     {
-        coffeeMachine.SelectedCoffeeStrength = CoffeeStrength.Mild;
+        coffeeMachine.ChangeCoffeeType(CoffeeStrength.Mild);
     }
 
     [UsedImplicitly]
     public void OnNormalPressed()
     {
-        coffeeMachine.SelectedCoffeeStrength = CoffeeStrength.Normal;
+        coffeeMachine.ChangeCoffeeType(CoffeeStrength.Normal);
     }
 
     [UsedImplicitly]
     public void OnStrongPressed()
     {
-        coffeeMachine.SelectedCoffeeStrength = CoffeeStrength.Strong;
+        coffeeMachine.ChangeCoffeeType(CoffeeStrength.Strong);
     }
 
     [UsedImplicitly]
     public void OnSmallPressed()
     {
-        coffeeMachine.SelectedCoffeeSize = CoffeeSize.Small;
+        coffeeMachine.ChangeCoffeeSize(CoffeeSize.Small);
     }
 
     [UsedImplicitly]
     public void OnMediumPressed()
     {
-        coffeeMachine.SelectedCoffeeSize = CoffeeSize.Medium;
+        coffeeMachine.ChangeCoffeeSize(CoffeeSize.Medium);
     }
 
     [UsedImplicitly]
     public void OnBigPressed()
     {
-        coffeeMachine.SelectedCoffeeSize = CoffeeSize.Big;
+        coffeeMachine.ChangeCoffeeSize(CoffeeSize.Big);
     }
 
     [UsedImplicitly]
@@ -99,14 +108,7 @@ public class CoffeeMachineUI : MonoBehaviour
     [UsedImplicitly]
     public void OnMakeCoffeePressed()
     {
-        string warningMessage = coffeeMachine.ValidateMachineBeforeUse();
-        if (warningMessage != String.Empty)
-        {
-            status.text = warningMessage;
-            return;
-        }
-
-        Coffee coffee = coffeeMachine.MakeCoffee();
+        ProducedCoffee coffee = coffeeMachine.MakeCoffee();
         status.text = coffee.ToString();
     }
     

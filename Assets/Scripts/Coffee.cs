@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using System.Text;
 
 public enum CoffeeSize
 {
@@ -17,6 +14,29 @@ public enum CoffeeStrength
     Strong,
 }
 
+public class ProducedCoffee
+{
+    private readonly string status;
+    private readonly Coffee coffee;
+
+    public ProducedCoffee(string status, Coffee coffee)
+    {
+        this.status = status;
+        this.coffee = coffee;
+    }
+
+    public override string ToString()
+    {
+        StringBuilder producedCoffee = new StringBuilder();
+        producedCoffee.AppendLine(status);
+        if (coffee != null)
+        {
+            producedCoffee.AppendLine(coffee.ToString());
+        }
+        return producedCoffee.ToString();
+    }
+}
+
 public class Coffee
 {
     public CoffeeStrength coffeeStrength;
@@ -27,8 +47,10 @@ public class Coffee
 
     public override string ToString()
     {
-        StringBuilder coffee = new StringBuilder($"It is a nice cup of coffee, some may say that it is {coffeeStrength}, and {coffeeSize} coffee");
-        coffee.AppendLine($"There are {amountOfWater}ml of water, to produced it {usedCoffeeSeeds}grams of coffee seeds was used");
+        StringBuilder coffee = new StringBuilder();
+        coffee.AppendLine($"It is a nice cup of coffee, some may say that it is {coffeeStrength}, {coffeeSize} coffee");
+        coffee.AppendLine($"This coffee contains {amountOfWater}ml of water");
+        coffee.AppendLine($"To produced it {usedCoffeeSeeds}grams of coffee seeds was used");
         coffee.AppendLine($"There were produced {producedCoffeeGrounds}grams of coffee grounds to get it");
         return coffee.ToString();
     }

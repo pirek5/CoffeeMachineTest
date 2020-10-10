@@ -13,16 +13,9 @@ public class CoffeeMachine
     private CoffeeMachineState coffeeMachineState;
     private CoffeeMachineSettings settings;
 
-    public CoffeeSize SelectedCoffeeSize { get; set; }
-    public  CoffeeStrength SelectedCoffeeStrength { get; set; }
-
     private bool machineEnabled;
-
-    #endregion
-
-    #region Properties
-
-    public bool IsMachineEnabled => machineEnabled;
+    private CoffeeSize selectedCoffeeSize;
+    private CoffeeStrength selectedCoffeeStrength;
 
     #endregion
     
@@ -68,13 +61,30 @@ public class CoffeeMachine
         coffeeMachineState.amountOfWaterInTray = 0f;
     }
 
+    public void ChangeCoffeeType(CoffeeStrength coffeeStrength)
+    {
+        if (!machineEnabled)
+            return;
+
+        selectedCoffeeStrength = coffeeStrength;
+    }
+
+    public void ChangeCoffeeSize(CoffeeSize coffeeSize)
+    {
+        if (!machineEnabled)
+            return;
+
+        selectedCoffeeSize = coffeeSize;
+    }
+    
+
     public string CheckMachineState()
     {
         StringBuilder coffeeState = new StringBuilder();
-        coffeeState.AppendLine("Amount of water in the tank: " + coffeeMachineState.amountOfWaterInTank);
-        coffeeState.AppendLine("Amount of coffee in the tank: " + coffeeMachineState.amountOfCoffee);
-        coffeeState.AppendLine("Amount of coffee grounds in the tank: " + coffeeMachineState.amountOfCoffeeGrounds);
-        coffeeState.AppendLine("Amount of water in the tray: " + coffeeMachineState.amountOfWaterInTray);
+        coffeeState.AppendLine($"Amount of water in the tank: {coffeeMachineState.amountOfWaterInTank} ml");
+        coffeeState.AppendLine($"Amount of coffee in the tank: {coffeeMachineState.amountOfCoffee}g");
+        coffeeState.AppendLine($"Amount of coffee grounds in the tank: {coffeeMachineState.amountOfCoffeeGrounds}g");
+        coffeeState.AppendLine($"Amount of water in the tray: {coffeeMachineState.amountOfWaterInTray}ml");
         if (coffeeMachineState.amountOfWaterInTray >= settings.WaterTrayCapacity)
         {
             coffeeState.AppendLine("Tray is full, please empty tray!");
@@ -83,49 +93,40 @@ public class CoffeeMachine
         return coffeeState.ToString();
     }
 
-    public string ValidateMachineBeforeUse()
+    public ProducedCoffee MakeCoffee()
     {
-        Coffee coffeeToProduce = settings.GetSpecificCoffee(SelectedCoffeeStrength, SelectedCoffeeSize);
-        if (!IsEnoughCoffeeInTank(coffeeToProduce))
-        {
-            return settings.NoCoffeeWarning;
-        }
-        
-        if(!IsEnoughWaterInTank(coffeeToProduce))
-        {
-            return settings.NoWaterWarning;
-        }
+        if (!machineEnabled)
+            return new ProducedCoffee(settings.StatusMachineDisabled , null);
 
-        if (!IsEnoughSpaceInCoffeeGroundsTank(coffeeToProduce))
-        {
-            return settings.ToMuchCoffeeGrounds;
-        }
+        Coffee coffee = settings.GetSpecificCoffee(selectedCoffeeStrength, selectedCoffeeSize);
+        var machineWarning = ValidateMachineBeforeUse(coffee);
+        if(machineWarning != string.Empty)
+            return new ProducedCoffee(machineWarning , null);
+        
+        UseCoffeeMachineResources(coffee);
+        HandleCoffeeMachineTray(coffee);
+        var status = CheckIfWaterSplitOutOfTray();
 
-        return String.Empty;
-    }
-
-    public Coffee MakeCoffee()
-    {
-        Coffee coffeeToProduce = settings.GetSpecificCoffee(SelectedCoffeeStrength, SelectedCoffeeSize);
-        
-        coffeeMachineState.amountOfCoffee -= coffeeToProduce.usedCoffeeSeeds;
-        coffeeMachineState.amountOfWaterInTank -= coffeeToProduce.amountOfWater;
-        float waterInCoffeeGrounds = coffeeToProduce.producedCoffeeGrounds - coffeeToProduce.usedCoffeeSeeds;
-        coffeeMachineState.amountOfWaterInTank -= waterInCoffeeGrounds;
-        coffeeMachineState.amountOfCoffeeGrounds += coffeeToProduce.producedCoffeeGrounds;
-        
-        float amountOfWaterThatGoesToTray = Random.Range(settings.MinAmountOfWaterThatGoesToTray,
-            settings.MaxAmountOfWaterThatGoesToTray);
-        coffeeToProduce.amountOfWater -= amountOfWaterThatGoesToTray;
-        
-        coffeeMachineState.amountOfWaterInTray = Mathf.Max(settings.WaterTrayCapacity, 
-            coffeeMachineState.amountOfWaterInTank + amountOfWaterThatGoesToTray) ;
-        return coffeeToProduce;
+        return new ProducedCoffee(status, coffee);
     }
     
     #endregion
     
     #region Private Methods
+    
+    private string ValidateMachineBeforeUse(Coffee coffeeToProduce)
+    {
+        if (!IsEnoughCoffeeInTank(coffeeToProduce))
+            return settings.NoCoffeeWarning;
+
+        if(!IsEnoughWaterInTank(coffeeToProduce))
+            return settings.NoWaterWarning;
+
+        if (!IsEnoughSpaceInCoffeeGroundsTank(coffeeToProduce))
+            return settings.ToMuchCoffeeGroundsWarning;
+
+        return String.Empty;
+    }
     
     private bool IsEnoughWaterInTank(Coffee coffeeToProduce)
     {
@@ -140,6 +141,40 @@ public class CoffeeMachine
     private bool IsEnoughSpaceInCoffeeGroundsTank(Coffee coffeeToProduce)
     {
         return settings.CoffeeGroundsTankCapacity - coffeeMachineState.amountOfCoffeeGrounds >= coffeeToProduce.usedCoffeeSeeds;
+    }
+
+    private void UseCoffeeMachineResources(Coffee coffee)
+    {
+        coffeeMachineState.amountOfCoffee -= coffee.usedCoffeeSeeds;
+        coffeeMachineState.amountOfWaterInTank -= coffee.amountOfWater;
+        float waterInCoffeeGrounds = coffee.producedCoffeeGrounds - coffee.usedCoffeeSeeds;
+        coffeeMachineState.amountOfWaterInTank -= waterInCoffeeGrounds;
+        coffeeMachineState.amountOfCoffeeGrounds += coffee.producedCoffeeGrounds;
+    }
+
+    private void HandleCoffeeMachineTray(Coffee coffee)
+    {
+        float amountOfWaterThatGoesToTray = Random.Range(settings.MinAmountOfWaterThatGoesToTray,
+            settings.MaxAmountOfWaterThatGoesToTray);
+        coffee.amountOfWater -= amountOfWaterThatGoesToTray;
+
+        coffeeMachineState.amountOfWaterInTray += amountOfWaterThatGoesToTray;
+    }
+
+    private string CheckIfWaterSplitOutOfTray()
+    {
+        string status;
+        if (coffeeMachineState.amountOfWaterInTray > settings.WaterTrayCapacity)
+        {
+            coffeeMachineState.amountOfWaterInTray = settings.WaterTrayCapacity;
+            status = settings.StatusTrayFull;
+        }
+        else
+        {
+            status = settings.StatusOk;
+        }
+
+        return status;
     }
     
     #endregion

@@ -18,9 +18,12 @@ MonoBehaviour:
   coffeeGroundsTankCapacity: 200
   minAmountOfWaterThatGoesToTray: 1
   maxAmountOfWaterThatGoesToTray: 10
+  statusOk: You made coffee!
+  statusTrayFull: You made coffee, but youl spill fluid, tray is full!
   noCoffeeWarning: Not enough coffee in the tank, please refill cofee tank!
-  noWaterWarning: Not enough coffee in the tank, please refill water tank!
-  toMuchCoffeeGrounds: Coffe grounds tank is full, please remove coffe grounds!
+  noWaterWarning: Not enough water in the tank, please refill water tank!
+  toMuchCoffeeGroundsWarning: To much coffee ground in the tank, please remove coffee
+    grounds!
   possibleCoffees:
   - coffeeStrength: 0
     coffeeSize: 0
