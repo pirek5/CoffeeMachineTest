@@ -1,0 +1,60 @@
+﻿## Deusald .gitignore
+## Author: Adam Orliński
+## Version: 1.0.0
+
+## Ignore all files:
+*
+
+## Ignore all, except:
+
+# Unity must-have directories:
+![aA]ssets
+![aA]ssets/**
+![pP]roject[sS]ettings
+![pP]roject[sS]ettings/**
+![pP]ackages
+![pP]ackages/**
+!Fmod
+!Fmod/**
+
+#Ignore TMP folder in project
+[aA]ssets/TMP
+[aA]ssets/TMP.meta
+
+#Ignore Rider plugin
+[aA]ssets/[pP]lugins/[eE]ditor]/JetBrains
+[aA]ssets/[pP]lugins/[eE]ditor]/JetBrains/**
+[aA]ssets/[pP]lugins/[eE]ditor]/JetBrains.meta
+
+# Git settings:
+!.gitignore
+!.gitattributes
+!.gitmodules
+
+# Documents (Docs)
+![dD]ocs
+![dD]ocs/**
+![dD]ocuments
+![dD]ocuments/**
+
+# Sources (Src)
+![sS]ources
+![sS]ources/**
+![sS]ource
+![sS]ource/**
+![sS]rc
+![sS]rc/**
+
+# Readme
+![rR]eadme.*
+!README.*
+
+# Changelog
+![cC]hangelog.*
+!CHANGELOG.*
+
+# Contribute
+![cC]ontribute.*
+![cC]ontributing.*
+!CONTRIBUTING.*
+!CONTRIBUTE.*
