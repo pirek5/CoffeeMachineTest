@@ -11,9 +11,9 @@ public class CoffeeMachine
     
     private CoffeeMachineState coffeeMachineState;
     private CoffeeMachineSettings settings;
-    
-    private CoffeeSize selectedCoffeeSize;
-    private CoffeeStrength selectedCoffeeStrength;
+
+    public CoffeeSize SelectedCoffeeSize { get; set; }
+    public  CoffeeStrength SelectedCoffeeStrength { get; set; }
 
     private bool machineEnabled;
 
@@ -83,7 +83,7 @@ public class CoffeeMachine
 
     public string ValidateMachineBeforeUse()
     {
-        Coffee coffeeToProduce = settings.GetSpecificCoffee(selectedCoffeeStrength, selectedCoffeeSize);
+        Coffee coffeeToProduce = settings.GetSpecificCoffee(SelectedCoffeeStrength, SelectedCoffeeSize);
         if (!IsEnoughCoffeeInTank(coffeeToProduce))
         {
             return settings.NoCoffeeWarning;
@@ -104,7 +104,7 @@ public class CoffeeMachine
 
     public Coffee MakeCoffee()
     {
-        Coffee coffeeToProduce = settings.GetSpecificCoffee(selectedCoffeeStrength, selectedCoffeeSize);
+        Coffee coffeeToProduce = settings.GetSpecificCoffee(SelectedCoffeeStrength, SelectedCoffeeSize);
         
         coffeeMachineState.amountOfCoffee -= coffeeToProduce.usedCoffeeSeeds;
         coffeeMachineState.amountOfWaterInTank -= coffeeToProduce.amountOfWater;
