@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7836a8d912b062e4782da3c72ae04bfe, type: 3}
+  m_Name: CoffeeMachineSettings
+  m_EditorClassIdentifier: 
+  waterTankCapacity: 2000
+  waterTrayCapacity: 50
+  coffeeTankCapacity: 200
+  coffeeGroundsTankCapacity: 200
+  minAmountOfWaterThatGoesToTray: 1
+  maxAmountOfWaterThatGoesToTray: 10
+  noCoffeeWarning: Not enough coffee in the tank, please refill cofee tank!
+  noWaterWarning: Not enough coffee in the tank, please refill water tank!
+  toMuchCoffeeGrounds: Coffe grounds tank is full, please remove coffe grounds!
+  possibleCoffees:
+  - coffeeStrength: 0
+    coffeeSize: 0
+    waterUsed: 150
+    coffeeSeedsUsed: 10
+    coffeeGroundsProduced: 15
+  - coffeeStrength: 0
+    coffeeSize: 1
+    waterUsed: 200
+    coffeeSeedsUsed: 15
+    coffeeGroundsProduced: 22
+  - coffeeStrength: 0
+    coffeeSize: 2
+    waterUsed: 250
+    coffeeSeedsUsed: 20
+    coffeeGroundsProduced: 30
+  - coffeeStrength: 1
+    coffeeSize: 0
+    waterUsed: 150
+    coffeeSeedsUsed: 15
+    coffeeGroundsProduced: 22
+  - coffeeStrength: 1
+    coffeeSize: 1
+    waterUsed: 200
+    coffeeSeedsUsed: 20
+    coffeeGroundsProduced: 30
+  - coffeeStrength: 1
+    coffeeSize: 2
+    waterUsed: 250
+    coffeeSeedsUsed: 25
+    coffeeGroundsProduced: 35
+  - coffeeStrength: 2
+    coffeeSize: 0
+    waterUsed: 150
+    coffeeSeedsUsed: 20
+    coffeeGroundsProduced: 30
+  - coffeeStrength: 2
+    coffeeSize: 1
+    waterUsed: 200
+    coffeeSeedsUsed: 25
+    coffeeGroundsProduced: 35
+  - coffeeStrength: 2
+    coffeeSize: 2
+    waterUsed: 250
+    coffeeSeedsUsed: 30
+    coffeeGroundsProduced: 45
