@@ -14,7 +14,7 @@ public class CoffeeMachineWindow : EditorWindow
     public static void ShowWindow()
     {
         var window = GetWindow<CoffeeMachineWindow>("Coffee Machine Window");
-        window.minSize = new Vector2(500f, 300f);
+        window.minSize = new Vector2(700f, 300f);
     }
 
     private void OnEnable()

@@ -80,7 +80,7 @@ public class CoffeeMachine
         coffeeState.AppendLine($"Amount of water in the tank: {coffeeMachineState.amountOfWaterInTank} ml");
         coffeeState.AppendLine($"Amount of coffee in the tank: {coffeeMachineState.amountOfCoffee}g");
         coffeeState.AppendLine($"Amount of coffee grounds in the tank: {coffeeMachineState.amountOfCoffeeGrounds}g");
-        coffeeState.AppendLine($"Amount of water in the tray: {coffeeMachineState.amountOfWaterInTray}ml");
+        coffeeState.AppendLine($"Amount of fluids in the tray: {coffeeMachineState.amountOfWaterInTray}ml");
         if (coffeeMachineState.amountOfWaterInTray >= settings.WaterTrayCapacity)
         {
             coffeeState.AppendLine("Tray is full, please empty tray!");

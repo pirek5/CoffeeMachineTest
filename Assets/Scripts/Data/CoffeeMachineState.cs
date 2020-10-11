@@ -11,6 +11,4 @@ public class CoffeeMachineState : ScriptableObject
    public float amountOfCoffeeGrounds;
 
    public List<CoffeeMachineSettings.CoffeeSettings> favoriteCoffees;
-
-
 }
