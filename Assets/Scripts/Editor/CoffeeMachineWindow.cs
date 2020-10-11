@@ -7,8 +7,7 @@ public class CoffeeMachineWindow : EditorWindow
 {
     [SerializeField] private CoffeeMachineSettings coffeeMachineSettings;
     [SerializeField] private CoffeeMachineState coffeeMachineState;
-    [SerializeField] private FavoriteCoffeesSettings favoriteCoffeesSettings;
-    
+
     private readonly string windowTemplatePath = "Assets/Data/UiWindows/CoffeeMachineTemplate.uxml";
     
     [MenuItem("CoffeeMachine/CoffeeMachineWindow")]
@@ -20,10 +19,25 @@ public class CoffeeMachineWindow : EditorWindow
 
     private void OnEnable()
     {
-        FavoritesCoffeesController favoritesCoffeesController = new FavoritesCoffeesController(coffeeMachineState, favoriteCoffeesSettings);
+        FavoritesCoffeesController favoritesCoffeesController = new FavoritesCoffeesController(coffeeMachineState, coffeeMachineSettings);
         CoffeeMachine coffeeMachine = new CoffeeMachine(coffeeMachineState, coffeeMachineSettings, favoritesCoffeesController);
+        
+        ShowCoffeeMachineView(coffeeMachine);
+        ShowFavoritesView(favoritesCoffeesController);
+    }
+
+    private void ShowCoffeeMachineView(CoffeeMachine coffeeMachine)
+    {
         CoffeeMachineEditorView coffeeMachineEditorView = new CoffeeMachineEditorView(rootVisualElement, coffeeMachine);
         var windowTreeAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(windowTemplatePath);
         coffeeMachineEditorView.Show(windowTreeAsset);
+    }
+
+    private void ShowFavoritesView(FavoritesCoffeesController favoritesCoffeesController)
+    {
+        var favoritesRoot = rootVisualElement.Q<VisualElement>("Favorites");
+        FavoritesCoffeesEditorView favoritesCoffeesEditorView =
+            new FavoritesCoffeesEditorView(favoritesRoot, coffeeMachineSettings, favoritesCoffeesController);
+        favoritesCoffeesEditorView.Show();
     }
 }

@@ -8,7 +8,7 @@ public class FavoritesCoffeesController
     #region Variables
     
     private readonly CoffeeMachineState coffeeMachineState;
-    private readonly FavoriteCoffeesSettings favoriteCoffeesSettings;
+    private readonly CoffeeMachineSettings settings;
 
     public int currentCoffeeIndex;
     
@@ -16,9 +16,9 @@ public class FavoritesCoffeesController
     
     #region Constructor & Init
     
-    public FavoritesCoffeesController(CoffeeMachineState coffeeMachineState, FavoriteCoffeesSettings favoriteCoffeesSettings)
+    public FavoritesCoffeesController(CoffeeMachineState coffeeMachineState, CoffeeMachineSettings settings)
     {
-        this.favoriteCoffeesSettings = favoriteCoffeesSettings;
+        this.settings = settings;
         this.coffeeMachineState = coffeeMachineState;
         currentCoffeeIndex = -1; // -1 means add coffee page
     }
@@ -81,10 +81,10 @@ public class FavoritesCoffeesController
 
     private CoffeeSize GetCoffeeSize(float waterAmount)
     {
-        if (waterAmount >= favoriteCoffeesSettings.AmountOfWaterToCoffeeBeDefinedAsBig)
+        if (waterAmount >= settings.FavoritesSettings.AmountOfWaterToCoffeeBeDefinedAsBig)
             return CoffeeSize.Big;
         
-        if (waterAmount >= favoriteCoffeesSettings.AmountOfWaterToCoffeeBeDefinedAsMedium)
+        if (waterAmount >= settings.FavoritesSettings.AmountOfWaterToCoffeeBeDefinedAsMedium)
             return CoffeeSize.Medium;
         
         return CoffeeSize.Small;
@@ -93,10 +93,10 @@ public class FavoritesCoffeesController
     private CoffeeStrength GetCoffeeStrength(float waterAmount, float seedAmount)
     {
         float ratio = seedAmount / waterAmount;
-        if (ratio >= favoriteCoffeesSettings.CoffeeWaterRatioForStrongCoffee)
+        if (ratio >= settings.FavoritesSettings.CoffeeWaterRatioForStrongCoffee)
             return CoffeeStrength.Strong;
 
-        if (ratio >= favoriteCoffeesSettings.CoffeeWaterRatioForNormalCoffee)
+        if (ratio >= settings.FavoritesSettings.CoffeeWaterRatioForNormalCoffee)
             return CoffeeStrength.Normal;
 
         return CoffeeStrength.Mild;

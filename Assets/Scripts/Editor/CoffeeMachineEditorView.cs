@@ -4,6 +4,7 @@ public class CoffeeMachineEditorView
 {
     private readonly VisualElement root;
     private readonly CoffeeMachine coffeeMachine;
+    private readonly FavoritesCoffeesEditorView favoritesCoffeesEditorView;
 
     private TextField status;
     
@@ -75,6 +76,11 @@ public class CoffeeMachineEditorView
             coffeeMachine.ChangeCoffeeSize(CoffeeSize.Big);
         };
 
+
+        root.Q<Button>("MakeFavoriteCoffeeButton").clicked += () =>
+        {
+            status.value = coffeeMachine.MakeFavoriteCoffee().ToString();
+        };
         root.Q<Button>("MakeCoffeeButton").clicked += () =>
         {
             status.value = coffeeMachine.MakeRegularCoffee().ToString();

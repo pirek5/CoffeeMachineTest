@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7836a8d912b062e4782da3c72ae04bfe, type: 3}
   m_Name: CoffeeMachineSettings
   m_EditorClassIdentifier: 
+  favoriteCoffeesSettings: {fileID: 11400000, guid: 6c8f41013d362314f8f9788a467616ca,
+    type: 2}
   waterTankCapacity: 2000
   waterTrayCapacity: 50
   coffeeTankCapacity: 200

@@ -46,7 +46,9 @@ public class CoffeeMachineSettings : ScriptableObject
     #endregion
     
     #region Variables
-    
+
+    [SerializeField] private FavoriteCoffeesSettings favoriteCoffeesSettings;
+    [Space]
     [SerializeField] private float waterTankCapacity;
     [SerializeField] private float waterTrayCapacity;
     [SerializeField] private float coffeeTankCapacity;
@@ -71,6 +73,8 @@ public class CoffeeMachineSettings : ScriptableObject
     
     #region Properties
 
+    public FavoriteCoffeesSettings FavoritesSettings => favoriteCoffeesSettings;
+    
     public float WaterTankCapacity => waterTankCapacity;
     public float WaterTrayCapacity => waterTrayCapacity;
     public float CoffeeTankCapacity => coffeeTankCapacity;

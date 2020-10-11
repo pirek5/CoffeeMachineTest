@@ -7,7 +7,6 @@ public class CoffeeMachineUI : MonoBehaviour
     #region Variables
     
     [SerializeField] private CoffeeMachineSettings settings;
-    [SerializeField] private FavoriteCoffeesSettings favoriteCoffeesSettings;
     [SerializeField] private CoffeeMachineState state;
     [SerializeField] private FavoritesCoffeeUI favoritesCoffeeUi;
     [Space]
@@ -21,9 +20,9 @@ public class CoffeeMachineUI : MonoBehaviour
     
     private void Start()
     {
-        var favoritesCoffeeController = new FavoritesCoffeesController(state, favoriteCoffeesSettings);
+        var favoritesCoffeeController = new FavoritesCoffeesController(state, settings);
         coffeeMachine = new CoffeeMachine(state, settings, favoritesCoffeeController);
-        favoritesCoffeeUi.Init(favoritesCoffeeController, favoriteCoffeesSettings);
+        favoritesCoffeeUi.Init(favoritesCoffeeController, settings);
     }
     
     #endregion

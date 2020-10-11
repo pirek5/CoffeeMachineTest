@@ -13,15 +13,15 @@ public class FavoritesCoffeeUI : MonoBehaviour
     [SerializeField] private TMP_InputField amountOfWater;
     [SerializeField] private Button addFavoriteCoffeeButton;
     [SerializeField] private Button removeFavoriteCoffeeButton;
-
-    private FavoriteCoffeesSettings settings;
+    
     private FavoritesCoffeesController favoritesCoffeesController;
+    private CoffeeMachineSettings settings;
 
     #endregion
 
     #region Constructors & Init
 
-    public void Init(FavoritesCoffeesController favoritesCoffeesController, FavoriteCoffeesSettings settings)
+    public void Init(FavoritesCoffeesController favoritesCoffeesController, CoffeeMachineSettings settings)
     {
         this.settings = settings;
         this.favoritesCoffeesController = favoritesCoffeesController;
@@ -76,7 +76,6 @@ public class FavoritesCoffeeUI : MonoBehaviour
         {
             ShowMakeFavoriteCoffee(currentFavoriteCoffee);
         }
-        Debug.Log("current page: "+ favoritesCoffeesController.currentCoffeeIndex);
     }
 
     private void ShowAddFavoriteCoffeeArea()
@@ -84,9 +83,9 @@ public class FavoritesCoffeeUI : MonoBehaviour
         favoriteCoffeeName.interactable = true;
         favoriteCoffeeName.text = String.Empty;
         amountOfWater.interactable = true;
-        amountOfWater.text = settings.DefaultAmountOfWater.ToString();
+        amountOfWater.text = settings.FavoritesSettings.DefaultAmountOfWater.ToString();
         amountOfCoffee.interactable = true;
-        amountOfCoffee.text = settings.DefaultAmountOfCoffeeSeeds.ToString();
+        amountOfCoffee.text = settings.FavoritesSettings.DefaultAmountOfCoffeeSeeds.ToString();
         addFavoriteCoffeeButton.gameObject.SetActive(true);
         removeFavoriteCoffeeButton.gameObject.SetActive(false);
     }
