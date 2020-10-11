@@ -9,6 +9,8 @@ using Button = UnityEngine.UIElements.Button;
 
 public class FavoritesCoffeesEditorView
 {
+    #region Variables
+
     private readonly FavoritesCoffeesController favoritesCoffeesController;
     private readonly CoffeeMachineSettings settings;
 
@@ -20,6 +22,8 @@ public class FavoritesCoffeesEditorView
 
     private Button addCoffeeButton;
     private Button removeCoffeeButton;
+
+    #endregion
     
     public FavoritesCoffeesEditorView(VisualElement root, CoffeeMachineSettings settings, FavoritesCoffeesController favoritesCoffeesController)
     {
@@ -27,6 +31,12 @@ public class FavoritesCoffeesEditorView
         this.settings = settings;
         this.favoritesCoffeesController = favoritesCoffeesController;
     }
+    
+    #region Constructor & Init
+    
+    #endregion
+
+    #region Public Methods
 
     public void Show()
     {
@@ -34,6 +44,10 @@ public class FavoritesCoffeesEditorView
         AssignButtons();
         RefreshView();
     }
+    
+    #endregion
+    
+    #region Private Methods
 
     private void AssignInputFields()
     {
@@ -109,4 +123,6 @@ public class FavoritesCoffeesEditorView
         addCoffeeButton.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
         removeCoffeeButton.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
     }
+    
+    #endregion
 }

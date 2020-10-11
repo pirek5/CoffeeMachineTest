@@ -54,7 +54,9 @@ public class CoffeeMachineSettings : ScriptableObject
     [SerializeField] private float coffeeTankCapacity;
     [SerializeField] private float coffeeGroundsTankCapacity;
     [Space] 
+    [Tooltip("Amount of liquid that goes to water tray from every cup of coffee is random, this is the minimum possible amount")]
     [SerializeField] private float minAmountOfWaterThatGoesToTray;
+    [Tooltip("Amount of liquid that goes to water tray from every cup of coffee is random, this is the maximum possible amount")]
     [SerializeField] private float maxAmountOfWaterThatGoesToTray;
     [Tooltip("Amount of used coffee seeds is multiplied by this to get amount of coffee grounds (grounds are coffee seeds plus water")]
     [SerializeField, Range(1f,2f)] private float coffeeGroundsWasteMultiplier;
